@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using ContosoUniveristy.Data;
 using ContosoUniveristy.Models;
 using ContosoUniversity.Data;
 using Microsoft.EntityFrameworkCore.Internal;
