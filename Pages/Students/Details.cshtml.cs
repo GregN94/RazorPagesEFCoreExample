@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniveristy.Models;
 using ContosoUniversity.Data;
+using System.Linq;
 
 namespace ContosoUniveristy.Pages.Students
 {
@@ -25,7 +26,11 @@ namespace ContosoUniveristy.Pages.Students
                 return NotFound();
             }
 
-            Student = await _context.Students.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Students
+                                .Include(s => s.Enrollments)
+                                .ThenInclude(s => s.Course)
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Student == null)
             {
